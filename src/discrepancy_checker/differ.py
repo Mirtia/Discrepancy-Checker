@@ -1,6 +1,7 @@
 """
 This file contains functions to compare JSON files representing system states from hypervisor and in-guest perspectives.
 """
+
 from deepdiff import DeepDiff
 from pathlib import Path
 import os
@@ -8,8 +9,10 @@ import json
 
 
 def differ(json_hypervisor_state: Path, json_in_guest_state: Path) -> None:
-    """
-    Read both input json provided (check if they exist) and compare their keys
+    """Read both input json provided (check if they exist) and compare their keys. Print the differences if any.
+
+    Raises:
+        FileNotFoundError: If either the hypervisor or in-guest JSON file does not exist.
     """
     if not os.path.exists(json_hypervisor_state):
         raise FileNotFoundError(f"File {json_hypervisor_state} does not exist.")
@@ -32,10 +35,11 @@ def differ(json_hypervisor_state: Path, json_in_guest_state: Path) -> None:
 
 
 def differ_all(json_hypervisor_state: Path, json_in_guest_state: Path) -> None:
-    """
-    Compare all files in a directory with higher matched prefix in their names. e.g. ebpf_trace_1111.json, ebpf_trace_2222.json
-    """
+    """Compare all files in a directory with higher matched prefix in their names. e.g. ebpf_trace_1111.json, ebpf_trace_2222.json
 
+    Raises:
+        FileNotFoundError: if either hypervisor or in-guest directory does not exist.
+    """
     if not os.path.exists(json_hypervisor_state):
         raise FileNotFoundError(f"Directory {json_hypervisor_state} does not exist.")
     if not os.path.exists(json_in_guest_state):
