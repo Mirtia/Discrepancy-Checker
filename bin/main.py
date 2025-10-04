@@ -6,6 +6,7 @@ This script provides command-line interface for comparing JSON files representin
 system states from hypervisor and in-guest perspectives.
 """
 
+from discrepancy_checker.differ import differ, differ_all
 import argparse
 import os
 import sys
@@ -15,8 +16,6 @@ from pathlib import Path
 sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
-
-from discrepancy_checker.differ import differ, differ_all
 
 
 def main():
@@ -41,7 +40,7 @@ Examples:
     | |__| | | | | |   | |____| | | |  __/ (__|   <  __/ |
     |_____/|_|_| |_|    \_____|_| |_|\___|\___|_|\_\___|_|
     """
-    )
+          )
 
     parser.add_argument(
         "--hypervisor",
@@ -73,15 +72,15 @@ Examples:
         if args.directory:
             # Directory comparison mode
             print(f"Comparing directories:")
-            print(f"- Hypervisor: {hypervisor_path}")
-            print(f"- Guest: {guest_path}")
+            print(f" - Hypervisor: {hypervisor_path}")
+            print(f" - Guest: {guest_path}")
             print("-" * 50)
             differ_all(hypervisor_path, guest_path)
         else:
             # Single file comparison mode
             print(f"Comparing files:")
-            print(f"- Hypervisor: {hypervisor_path}")
-            print(f"- Guest: {guest_path}")
+            print(f" - Hypervisor: {hypervisor_path}")
+            print(f" - Guest: {guest_path}")
             print("-" * 50)
             differ(hypervisor_path, guest_path)
 
