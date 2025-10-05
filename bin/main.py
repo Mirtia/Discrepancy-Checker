@@ -6,16 +6,15 @@ This script provides command-line interface for comparing JSON files representin
 system states from hypervisor and in-guest perspectives.
 """
 
-from discrepancy_checker.differ import differ, differ_all
 import argparse
 import os
 import sys
 from pathlib import Path
 
+from discrepancy_checker.differ import differ, differ_all
+
 # Add src/ to path for imports
-sys.path.insert(
-    0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
-)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 
 def main():
@@ -30,7 +29,7 @@ Examples:
 
   # Compare all files in directories
   python main.py --hypervisor /path/to/hypervisor/dir --guest /path/to/guest/dir -d
-        """
+        """,
     )
     print(r"""
      _____  _  __  __    _____ _               _
@@ -39,27 +38,25 @@ Examples:
     | |  | | |  _|  _| | |    | '_ \ / _ \/ __| |/ / _ \ '__|
     | |__| | | | | |   | |____| | | |  __/ (__|   <  __/ |
     |_____/|_|_| |_|    \_____|_| |_|\___|\___|_|\_\___|_|
-    """
-          )
+    """)
 
     parser.add_argument(
         "--hypervisor",
         dest="hypervisor_path",
         required=True,
-        help="Path to hypervisor JSON file or directory (when using -d flag)"
+        help="Path to hypervisor JSON file or directory (when using -d flag)",
     )
 
     parser.add_argument(
-        "-g", "--guest",
+        "-g",
+        "--guest",
         dest="guest_path",
         required=True,
-        help="Path to guest JSON file or directory (when using -d flag)"
+        help="Path to guest JSON file or directory (when using -d flag)",
     )
 
     parser.add_argument(
-        "-d", "--directory",
-        action="store_true",
-        help="Compare all files in directories instead of single files"
+        "-d", "--directory", action="store_true", help="Compare all files in directories instead of single files"
     )
 
     args = parser.parse_args()
@@ -71,14 +68,14 @@ Examples:
     try:
         if args.directory:
             # Directory comparison mode
-            print(f"Comparing directories:")
+            print("Comparing directories:")
             print(f" - Hypervisor: {hypervisor_path}")
             print(f" - Guest: {guest_path}")
             print("-" * 50)
             differ_all(hypervisor_path, guest_path)
         else:
             # Single file comparison mode
-            print(f"Comparing files:")
+            print("Comparing files:")
             print(f" - Hypervisor: {hypervisor_path}")
             print(f" - Guest: {guest_path}")
             print("-" * 50)
